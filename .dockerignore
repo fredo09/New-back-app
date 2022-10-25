@@ -1,0 +1,5 @@
+#Cosas que no queremos que se copien en el contenedor
+node_modules
+npm-debug.log
+Dockerfile
+.dockerignore

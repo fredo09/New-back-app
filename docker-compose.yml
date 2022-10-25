@@ -1,0 +1,35 @@
+#Multicontainer Mern
+version: '3'
+services:
+  # MONGO
+  mongo_db:
+    container_name: mongo-container-app
+    image: mongo:latest
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    networks:
+      - mern-network
+    volumes:
+      - ./mongo:/data/db
+
+  #Node
+  node_api:
+    container_name: node-container-app
+    build:
+      context: .
+      dockerfile: Dockerfile.Dev
+    volumes:
+      - ./:/app
+    networks:
+      - mern-network
+    ports:
+      - 8000:8000
+    restart: unless-stopped
+    depends_on:
+      - mongo_db
+
+networks:
+  mern-network:
+    driver: bridge
+
